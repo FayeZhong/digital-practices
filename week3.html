@@ -1,39 +1,21 @@
 <!doctype html>
-<html lang="en-GB">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>
-      Week 3 | Yifei’s Digital Lab
-    </title>
-    <link rel="stylesheet" href="mystylesheet.css">
-  </head>
-  <body>
-    <header>
-      <nav class="wrap">
-        <a class="brand" href="index.html">
-          Yifei’s Digital Lab
-        </a>
-        <a class="navlink" href="index.html#journal">
-          All reflections
-        </a>
-      </nav>
-    </header>
-    <main class="article">
-      <p class="eyebrow">
-        Week 03
-      </p>
-      <h1>
-        The next chapter
-      </h1>
-      <p class="note">
-        Reflection to follow. I will add the workshop topic and my reflection here.
-      </p>
-      <p>
-        <a href="index.html#journal">
-          ← Back to all reflections
-        </a>
-      </p>
-    </main>
-  </body>
-</html>
+<html lang="en-GB"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 3: Web Scraping | Yifei’s Digital Lab</title><link rel="stylesheet" href="mystylesheet.css"></head><body><header><nav class="wrap"><a class="brand" href="index.html">Yifei’s Digital Lab</a><a class="navlink" href="index.html#journal">All reflections</a></nav></header><main class="article"><p class="eyebrow">Week 03 · Digital Practices</p>
+<h1>Web scraping: learning to check what I collect</h1>
+<p>This week I explored web scraping using the Web Scraper extension in Google Chrome and Python in Google Colab. My understanding was initially vague: I associated looking at source code with finding a way to “break through” a website for my own benefit. Through the workshop, I came to understand scraping as a way of locating information in a webpage and organising it into a dataset. The purpose depends on the question I want to investigate.</p>
+<h2>From one result to repeated elements</h2>
+<p>At first, I mainly followed the steps and clicked the suggested buttons without fully understanding each choice. My initial BBC iPlayer selectors targeted the title and description in the hero area at the top of the homepage. When I asked my teacher about my work, they pointed out that I had only collected one record. The extraction worked within that small area, but it did not achieve my intention of collecting multiple programme entries.</p>
+<figure class="workshop-evidence"><a href="images/week3/hero-original-export.png"><img src="images/week3/hero-original-export.png" alt="Original exported CSV with one row containing the Stacey Dooley: Fallen Women title, description and BBC iPlayer source URL." loading="lazy"></a><figcaption>Figure 1. My original exported dataset contained only one record: the title and description of Stacey Dooley: Fallen Women from the homepage hero area. Click the image to view it at full size.</figcaption></figure><p>I then used a parent selector, programme, to identify repeated programme cards, and a child selector, title, to extract text within each card. The parent allowed multiple matches, while the child took one matching title from each card. This helped me understand nesting: the location of an element matters as much as its tag or class name.</p><figure class="workshop-evidence"><a href="images/week3/programme-title-selectors.png"><img src="images/week3/programme-title-selectors.png" alt="Web Scraper showing title nested under programme, with programme listed as its parent selector." loading="lazy"></a><figcaption>Figure 2. The programme → title structure extracts a title within each matching programme card. Click the image to view it at full size.</figcaption></figure><p>After checking the preview, I ran the scraper and exported the CSV. The downloaded file contained 106 records, with 87 distinct titles and no empty title values. This distinction matters: a programme can appear in more than one homepage section, so 106 records does not mean 106 different programmes. These results describe the selected homepage elements at the time of collection, rather than the complete BBC catalogue.</p><figure class="workshop-evidence"><a href="images/week3/bbc-scraping-results.png"><img src="images/week3/bbc-scraping-results.png" alt="Web Scraper results table showing record identifiers, the BBC iPlayer source URL and multiple programme titles." loading="lazy"></a><figcaption>Figure 3. Part of the exported BBC iPlayer dataset. Checking the CSV confirmed 106 records and 87 distinct programme titles. Click the image to view it at full size.</figcaption></figure><h2>Trying Python and comparing the methods</h2>
+<p>I also used Python in Google Colab to collect book titles and prices from the first page of Books to Scrape, a demonstration website. The script requested the page, used BeautifulSoup to locate repeated book cards, extracted the two fields and saved them to a CSV. It returned 20 records, and I opened the downloaded file to check the table.</p><figure class="workshop-evidence"><a href="images/week3/python-code-output.png"><img src="images/week3/python-code-output.png" alt="Google Colab Python code and output reporting 20 records saved to books.csv, followed by five sample titles and prices." loading="lazy"></a><figcaption>Figure 4. My Python run in Google Colab, showing the extraction code and a sample of the 20 returned records. Click the image to view it at full size.</figcaption></figure><figure class="workshop-evidence"><a href="images/week3/books-csv-results.png"><img src="images/week3/books-csv-results.png" alt="Exported table showing 20 book titles and pound-denominated prices in title and price columns." loading="lazy"></a><figcaption>Figure 5. The downloaded CSV opened as a table. The prices come from a demonstration website and are not evidence of current retail prices. Click the image to view it at full size.</figcaption></figure><p>I also ran the BBC scraping example provided by my teacher. Its output included programme titles alongside descriptive text, with categories and durations where available. Comparing this with my Chrome export helped me see that the same website can produce different datasets depending on the fields selected. Running this supplied example was guided practice rather than code I had written independently.</p>
+<figure class="workshop-evidence"><a href="images/week3/bbc-python-results.png"><img src="images/week3/bbc-python-results.png" alt="BBC programme data exported using the teacher-provided Python example, showing titles alongside descriptions, categories and durations where available." loading="lazy"></a><figcaption>Figure 6. Part of the BBC dataset produced by running the teacher-provided Python example. Some descriptive text extends beyond the visible table. Click the image to view it at full size.</figcaption></figure>
+<p>For me, Python was easier to follow with guidance. The Chrome extension had many buttons and abstract English options, which were difficult to interpret as a non-native English speaker. In the script, I could follow the sequence from requesting the page to saving the results. I used ChatGPT to help me understand the steps and generate code; this does not mean that I can yet write the whole script independently. Both methods still required me to inspect and check the output.</p>
+<h2>Checking, adjusting and thinking about ethics</h2>
+<p>The workshop showed me that scraping is a process of repeated checking. A small selector error can return no results, while a selector with too narrow a scope can return a plausible but incomplete dataset. A successful preview also needs to be followed by checking the actual exported file. Rather than assuming that a tool has collected everything I need, I should ask what it included, what it missed and whether repeated entries need to be kept or removed for my research question.</p>
+<p>The reading on digital research ethics also made me consider how I would treat personal material in future projects. Public visibility does not necessarily mean that someone expects their words to be collected and republished for research. Contextual privacy and traceability matter: removing a username may not protect someone if a verbatim quotation can be searched online. My BBC and demonstration-book exercises did not involve collecting personal comments, but a different dataset would require different ethical decisions.</p>
+<h2>What changed in my understanding</h2>
+<p>I now see a webpage as a structured arrangement of elements, rather than simply what appears on the screen. Scraping makes some of those elements into data through choices about scope, fields and repetition. My most useful learning was not just producing a CSV, but recognising that I am responsible for understanding and checking those choices.</p>
+<div class="sources"><strong>Materials and assistance</strong><ul>
+<li>COMM5780M Week 3 Web Scraping workshop instructions, written by Dr Chris Birchall and updated by the teaching team.</li>
+<li>Tiidenberg, K. (2018). Ethics in digital research. In U. Flick (ed.), <em>The SAGE Handbook of Qualitative Data Collection</em>, pp. 466–479.</li>
+<li>Practice sources: <a href="https://www.bbc.co.uk/iplayer">BBC iPlayer</a> and <a href="https://books.toscrape.com/">Books to Scrape</a>.</li>
+</ul><p>ChatGPT assisted with code, troubleshooting, explanations and drafting this reflection from my account of the workshop. Screenshots show my own practice runs.</p></div>
+<p><a href="index.html#journal">← Back to all reflections</a></p></main><footer><div class="wrap">Yifei’s Digital Lab · Learning in progress</div></footer></body></html>
